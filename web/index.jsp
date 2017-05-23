@@ -11,8 +11,8 @@
     <title>登陆页面</title>
   </head>
   <body>
-    <h1>欢迎使用教务管理系统</h1>
-    <form action="Login" method="post">
+  <h1>欢迎使用教务管理系统</h1>
+  <form action="IndexServlet" method="post">
     <table>
       <tr>
         <td>用户名</td>
@@ -26,6 +26,8 @@
     <input type="radio" value="student" name="identity">学生
     <input type="radio" value="teacher" name="identity">教师
     <input type="radio" value="admin" name="identity">管理员
-    </form>
+    <input type="submit" value="登录">
+    <input type="submit" value="重置">
+  </form>
   </body>
 </html>
