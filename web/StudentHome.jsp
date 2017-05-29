@@ -11,24 +11,23 @@
     <title>首页</title>
 </head>
 <body>
-<h1>欢迎使用教务管理系统</h1>
+
 <p>
     学号：${user.id}
     <input type="submit" value="退出">
 </p>
-<div id="FuncMap">
 
-</div>
+<jsp:include page="Head.jsp"></jsp:include>
 
 <div id="ClassSchedule">
     <table border="1">
         <tr style="height: 10px;width: 40px">
             <th> </th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesdays</th>
-            <th>Thursday</th>
-            <th>Friday</th>
+            <th>星期一</th>
+            <th>星期二</th>
+            <th>星期三</th>
+            <th>星期四</th>
+            <th>星期五</th>
         </tr>
         <tr style="height: 30px;width: 30px">
             <td>第一节</td>

@@ -11,7 +11,7 @@
     <title>登陆页面</title>
   </head>
   <body>
-  <h1>欢迎使用教务管理系统</h1>
+  <jsp:include page="Head.jsp"></jsp:include>
   <form action="IndexServlet" method="post">
     <table>
       <tr>

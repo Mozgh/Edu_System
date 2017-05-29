@@ -32,10 +32,16 @@ public class IndexServlet extends HttpServlet {
         UserBean userbean=userdao.findById(id);
         if(password.equals(userbean.getPassword())){
             message="登录成功";
-            response.sendRedirect("/StudentHome.jsp");
+            request.setAttribute("message",message);
+            request.getSession().setAttribute("user",userbean);
+            if(userbean.getIdentity()==0)
+                response.sendRedirect("/ManegeHome.jsp");
+            else
+                response.sendRedirect("/StudentHome.jsp");
         }
         else{
             message="密码错误";
+            request.setAttribute("message",message);
             response.sendRedirect("/index.jsp");
         }
 }

@@ -15,20 +15,27 @@ public class UserDao extends BaseDao{
 
     //根据ID查找用户信息
         public UserBean findById(String id){
-            String sql="select password from sys_user where id=?";
+            String sql="select * from sys_user where id=?";
             ResultSet rst=null;
             UserBean userbean=null;
             try {
-                Connection conn=dataSourse.getConnection();
+                Connection conn= dataSource.getConnection();
                 pstmt=conn.prepareStatement(sql);
             pstmt.setString(1,id);
             rst=pstmt.executeQuery();
-            conn.close();
+            //conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("userdao");
         }
         try {
-            userbean=new UserBean(rst.getString("id"),rst.getString("password"),rst.getInt("identity"));
+                if(rst.next()){
+                    String id1=rst.getString("id");
+                    String password=rst.getString("password");
+                    int identity=rst.getInt("identity");
+                    userbean=new UserBean(id1,password,identity);
+                }
+            //userbean=new UserBean(rst.getString("id"),rst.getString("password"),rst.getInt("identity"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -40,7 +47,7 @@ public class UserDao extends BaseDao{
         PreparedStatement pstmt=null;
         int n=0;
         try {
-            Connection conn=dataSourse.getConnection();
+            Connection conn= dataSource.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1,id);
             pstmt.setString(2,pwd);
