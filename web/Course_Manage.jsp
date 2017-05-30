@@ -12,7 +12,9 @@
     <title>课程信息管理</title>
 </head>
 <body>
-<a href="Course_Add.jsp">新增开课</a>
+${message}
+<a href="/ManageHome.jsp">返回</a>
+<a href="Course_Add.jsp">新增课程</a>
 <table>
     <tr>
         <th>课程代码</th>
@@ -31,14 +33,10 @@
             <td>${course.getC_Name()}</td>
             <td>${course.getC_Depart()}</td>
             <td>
-                <a href="/ToCourse_Tea_Manage?c_no=${course.getC_ID()}">查看课程班</a>
+                <a href="/ToCourse_Tea_Manage?c_no=${course.getC_ID()}">查看教学班</a>
             </td>
             <td>
-                <form>
-                    <input type="hidden" value="${course.getC_ID()}" name="c_id">
-                    <input type="hidden" value="${course.getC_Teacher()}" name="c_teacher">
-                    <input type="submit" value="删除">
-                </form>
+                <a href="/EditCourse?c_no=${course.getC_ID()}">修改课程信息</a>
             </td>
         </tr>
     </c:forEach>

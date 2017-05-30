@@ -13,6 +13,7 @@
 </head>
 <body>
 <a href="Course_Manage.jsp">返回</a>
+<a href="/AddCourseTeacher?c_no=${c_no}">新开教学班</a>
 <table>
     <tr>
         <th>课程代码</th>
@@ -34,7 +35,7 @@
         <td>${course_tea.getC_Name()}</td>
         <td>${course_tea.getC_Depart()}</td>
         <td>${course_tea.getC_Teacher()}</td>
-        <td>${course_tea.getC_Site()}</td>
+        <td>${course_tea.getC_Room()}</td>
         <td>${course_tea.getC_Time()}</td>
         <td>
             <form>

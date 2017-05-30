@@ -9,7 +9,7 @@ public class CourseBean {
     private String c_Depart;    //开课学院
     private String c_Info;      //课程简介
     private String c_Teacher;   //授课教师（名）
-    private String c_Site;      //上课地点
+    private String c_Room;      //上课地点
     private String c_Time;      //上课时间
 
     public CourseBean(){}
@@ -27,7 +27,7 @@ public class CourseBean {
         }
         this.c_Info=info;
         this.c_Teacher=teacher;
-        this.c_Site=site;
+        this.c_Room =site;
         this.c_Time=time;
     }
 
@@ -46,7 +46,7 @@ public class CourseBean {
     }
     public void setC_Info(String info){this.c_Info=info;}
     public void setC_Teacher(String teacher){this.c_Teacher=teacher;}
-    public void setC_Site(String site){this.c_Site=site;}
+    public void setC_Room(String site){this.c_Room =site;}
     public void setC_Time(String time){this.c_Time=time;}
 
     public String getC_ID(){return this.c_ID;}
@@ -54,6 +54,6 @@ public class CourseBean {
     public String getC_Depart(){return this.c_Depart;}
     public String getC_Info(){return this.c_Info;}
     public String getC_Teacher(){return this.c_Teacher;}
-    public String getC_Site(){return this.c_Site;}
+    public String getC_Room(){return this.c_Room;}
     public String getC_Time(){return this.c_Time;}
 }

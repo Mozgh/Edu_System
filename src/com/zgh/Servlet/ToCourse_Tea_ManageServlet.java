@@ -24,6 +24,7 @@ public class ToCourse_Tea_ManageServlet extends HttpServlet {
         CourseListBean courselist=new CourseListBean();
         courselist.setCourse_Tea_List(c_no);
         request.setAttribute("courselist",courselist);
+        request.setAttribute("c_no",c_no);
         RequestDispatcher rd=request.getRequestDispatcher("/Course_Tea_Manage.jsp");
         rd.forward(request,response);
     }

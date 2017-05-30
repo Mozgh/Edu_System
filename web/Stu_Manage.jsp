@@ -46,6 +46,6 @@ ${message}
     </c:forEach>
 
 </table>
-<a href="ManegeHome.jsp">返回</a>
+<a href="ManageHome.jsp">返回</a>
 </body>
 </html>

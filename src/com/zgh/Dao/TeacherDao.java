@@ -77,6 +77,27 @@ public class TeacherDao extends BaseDao{
         else return String.valueOf(++tea_no);
     }
 
+    public ArrayList<TeacherBean> selectByDepart(String depart){
+        ArrayList<TeacherBean> teachers=new ArrayList<TeacherBean>();
+        String sql="select t_no,t_name from teacher where t_department=?";
+        try {
+            conn=dataSource.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,depart);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                TeacherBean teacher=new TeacherBean();
+                teacher.setT_ID(rst.getString("t_no"));
+                teacher.setT_Name(rst.getString("t_name"));
+                teachers.add(teacher);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return teachers;
+    }
+
     public int addTeacher(TeacherBean teacher){
         int row=0;
         String sql="insert into teacher values(?,?,?,?,?)";

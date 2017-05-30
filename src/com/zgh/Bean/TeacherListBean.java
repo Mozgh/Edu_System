@@ -16,5 +16,9 @@ public class TeacherListBean {
         TeacherDao teacherdao=new TeacherDao();
         this.teacherList=teacherdao.selectTeachers();
     }
+    public void setTeacherList(String depart){
+        TeacherDao teacherdao=new TeacherDao();
+        this.teacherList=teacherdao.selectByDepart(depart);
+    }
     public ArrayList<TeacherBean> getTeacherList()  {return this.teacherList;}
 }

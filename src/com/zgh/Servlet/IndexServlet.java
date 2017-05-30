@@ -35,7 +35,7 @@ public class IndexServlet extends HttpServlet {
             request.setAttribute("message",message);
             request.getSession().setAttribute("user",userbean);
             if(userbean.getIdentity()==0)
-                response.sendRedirect("/ManegeHome.jsp");
+                response.sendRedirect("/ManageHome.jsp");
             else
                 response.sendRedirect("/StudentHome.jsp");
         }
