@@ -13,6 +13,7 @@
 </head>
 <body>
 ${message}
+<form action="AddTeacher" method="post"><input type="submit" value="添加教师"></form>
 <table>
     <tr>
         <th>教工号</th>
@@ -34,10 +35,11 @@ ${message}
             <td>${teacher.getT_Age()}</td>
             <td>${teacher.getT_Depart()}</td>
             <td>${teacher.getT_Prof()}</td>
-            <td><form><input type="hidden" value="${teacher.getT_ID()}" name="t_id"><input type="submit" value="修改"> </form></td>
-            <td><form><input type="hidden" value="${teacher.getT_ID()}" name="t_id"><input type="submit" value="删除"> </form></td>
+            <td><form action="EditTeacher" method="post"><input type="hidden" value="${teacher.getT_ID()}" name="t_id"><input type="submit" value="修改"> </form></td>
+            <td><form action="/DelTeacher" method="post"><input type="hidden" value="${teacher.getT_ID()}" name="t_id"><input type="submit" value="删除"> </form></td>
         </tr>
     </c:forEach>
 </table>
+<a href="ManegeHome.jsp">返回</a>
 </body>
 </html>

@@ -16,7 +16,15 @@ public class CourseBean {
     public CourseBean(String id,String name,String depart,String info,String teacher,String site,String time){
         this.c_ID=id;
         this.c_Name=name;
-        this.c_Depart=depart;
+        switch(depart){
+            case "10":this.c_Depart="能源与动力工程学院";break;
+            case "12":this.c_Depart="光电信息与计算机工程学院";break;
+            case "14":this.c_Depart="机械工程学院";break;
+            case "16":this.c_Depart="管理学院";break;
+            case "18":this.c_Depart="环境与建筑学院";break;
+            case "20":this.c_Depart="外语学院";break;
+            default:this.c_Depart=depart;break;
+        }
         this.c_Info=info;
         this.c_Teacher=teacher;
         this.c_Site=site;
@@ -25,7 +33,17 @@ public class CourseBean {
 
     public void setC_ID(String id){this.c_ID=id;}
     public void setC_Name(String name){this.c_Name=name;}
-    public void setC_Depart(String depart){this.c_Depart=depart;}
+    public void setC_Depart(String depart){
+        switch(depart){
+            case "10":this.c_Depart="能源与动力工程学院";break;
+            case "12":this.c_Depart="光电信息与计算机工程学院";break;
+            case "14":this.c_Depart="机械工程学院";break;
+            case "16":this.c_Depart="管理学院";break;
+            case "18":this.c_Depart="环境与建筑学院";break;
+            case "20":this.c_Depart="外语学院";break;
+            default:this.c_Depart=depart;break;
+        }
+    }
     public void setC_Info(String info){this.c_Info=info;}
     public void setC_Teacher(String teacher){this.c_Teacher=teacher;}
     public void setC_Site(String site){this.c_Site=site;}

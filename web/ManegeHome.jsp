@@ -23,8 +23,8 @@
     </tr>
     <tr>
         <td>课程管理</td>
-        <td><input type="submit" value="课程信息管理"></td>
-        <td><input type="submit" value="添加课程信息"></td>
+        <td><input type="submit" value="课程信息管理"><a href="Course_Manage.jsp">课程信息管理</a></td>
+        <td><input type="submit" value="教学班管理"><a href="Course_Tea_Manage.jsp">教学班管理</a></td>
     </tr>
     <tr>
         <td>教室信息</td>

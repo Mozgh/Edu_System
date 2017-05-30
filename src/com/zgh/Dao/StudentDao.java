@@ -85,7 +85,7 @@ public class StudentDao extends BaseDao{
         }
         return row;
     }
-    //查找某年级某学院最大学号
+    //查找某年级某学院最大学号,返回为下一个新学号
     public String selectStudentNo(int age,int depart){
         int stu_no=0;
         String age_depart=String.valueOf(age%100)+String.valueOf(depart);

@@ -1,8 +1,7 @@
 package com.zgh.Servlet;
 
-import com.zgh.Bean.StudentBean;
-import com.zgh.Bean.UserBean;
-import com.zgh.Dao.StudentDao;
+import com.zgh.Bean.TeacherBean;
+import com.zgh.Dao.TeacherDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,34 +12,34 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by feir4 on 2017/5/28.
+ * Created by feir4 on 2017/5/29.
  */
-@WebServlet("/AddStudent")
-public class AddStudentServlet extends HttpServlet {
+@WebServlet("/AddTeacher")
+public class AddTeacherServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd=request.getRequestDispatcher("/Stu_Add.jsp");
+        RequestDispatcher rd=request.getRequestDispatcher("/Tea_Add.jsp");
         rd.forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String message="";
         String name=request.getParameter("name");
-        String sex=request.getParameter("sex");
         String age=request.getParameter("age");
         String depart=request.getParameter("depart");
+        String prof=request.getParameter("prof");
 
-        StudentDao studentdao=new StudentDao();
-        String id=studentdao.selectStudentNo(Integer.parseInt(age),Integer.parseInt(depart));
-        StudentBean studentbean=new StudentBean(id,name,sex,Integer.parseInt(age),depart);
-        int result=studentdao.addStudent(studentbean);
+        TeacherDao teacherdao=new TeacherDao();
+        String id=teacherdao.selectTeacherNo(Integer.parseInt(depart));
+        TeacherBean teacher=new TeacherBean(id,name,Integer.parseInt(age),depart,prof);
+        int result=teacherdao.addTeacher(teacher);
         if(result==1){
-            message="添加成功 学号为："+id;
-        }else{
+            message="添加成功，教工号为："+id;
+        }
+        else{
             message="添加失败";
         }
         request.setAttribute("message",message);
-        RequestDispatcher rd=request.getRequestDispatcher("/Stu_Manage.jsp");
+        RequestDispatcher rd=request.getRequestDispatcher("/Tea_Manage.jsp");
         rd.forward(request,response);
-
     }
 }
