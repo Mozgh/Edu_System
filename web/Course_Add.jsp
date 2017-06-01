@@ -35,29 +35,16 @@
             </td>
         </tr>
         <tr>
+            <td>学分</td>
+            <td><input type="text" name="c_credit"></td>
+        </tr>
+        <tr>
             <td>课程简介</td>
             <td><input type="text" name="c_info"></td>
         </tr>
         <tr>
             <td></td>
             <td><input type="submit" value="确定"></td>
-        </tr>
-    </table>
-    <h1>新开教学班</h1>
-    <table>
-        <tr>
-            <td>学院</td>
-            <td>
-                <select name="depart">
-                    <option value=""></option>
-                    <option value="10">能源与动力工程学院</option>
-                    <option value="12">光电信息与计算机工程学院</option>
-                    <option value="14">机械工程学院</option>
-                    <option value="16">管理学院</option>
-                    <option value="18">环境与建筑学院</option>
-                    <option value="20">外语学院</option>
-                </select>
-            </td>
         </tr>
     </table>
 </form>

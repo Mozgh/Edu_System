@@ -11,11 +11,15 @@ public class CourseListBean {
     private ArrayList<CourseBean> course_tea_list;
     private ArrayList<CourseBean> course_list;
 
-    public CourseListBean(){this.setCourse_List();}
+    public CourseListBean(){this.setCourse_List();this.setCourse_Tea_List();}
 
     public void setCourse_Tea_List(String c_no){
         CourseDao coursedao=new CourseDao();
-        this.course_tea_list =coursedao.selectCourseTeacher(c_no);
+        this.course_tea_list =coursedao.selectCourseTeacher(c_no,"");
+    }
+    public void setCourse_Tea_List(){
+        CourseDao coursedao=new CourseDao();
+        this.course_tea_list=coursedao.selectCourseTeacher("","");
     }
     public void setCourse_List(){
         CourseDao coursedao=new CourseDao();

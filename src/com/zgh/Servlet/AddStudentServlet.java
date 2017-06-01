@@ -3,6 +3,7 @@ package com.zgh.Servlet;
 import com.zgh.Bean.StudentBean;
 import com.zgh.Bean.UserBean;
 import com.zgh.Dao.StudentDao;
+import com.zgh.Dao.UserDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,6 +34,8 @@ public class AddStudentServlet extends HttpServlet {
         String id=studentdao.selectStudentNo(Integer.parseInt(age),Integer.parseInt(depart));
         StudentBean studentbean=new StudentBean(id,name,sex,Integer.parseInt(age),depart);
         int result=studentdao.addStudent(studentbean);
+        UserDao userdao=new UserDao();
+        userdao.addUser(id,id,1);
         if(result==1){
             message="添加成功 学号为："+id;
         }else{

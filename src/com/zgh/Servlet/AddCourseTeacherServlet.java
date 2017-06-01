@@ -30,15 +30,17 @@ public class AddCourseTeacherServlet extends HttpServlet {
 
         String message="";
         CourseDao coursedao=new CourseDao();
-        int result=coursedao.addCourse_Tea(c_no,teacher,day+time,classroom);
+        String ct_id=coursedao.selectCT_ID(c_no,teacher);
+        String result=coursedao.addCourse_Tea(ct_id,c_no,teacher,day+time,classroom);
         RequestDispatcher rd=request.getRequestDispatcher("/Course_Tea_Add.jsp");
-        if(result!=0){
+        if(result.equals("添加成功")){
             message="添加成功";
             rd=request.getRequestDispatcher("/Course_Tea_Manage.jsp");
         }
         else{
-            message="添加失败";
+            message="添加失败，教室已被占用";
         }
+        request.setAttribute("message",message);
         rd.forward(request,response);
     }
 
@@ -60,8 +62,8 @@ public class AddCourseTeacherServlet extends HttpServlet {
         teacherList.setTeacherList(depart);
         ArrayList<ClassroomBean> classroomList=coursedao.selectClassroom();
         request.setAttribute("course",course);
-        request.setAttribute("teacherList",teacherList);
-        request.setAttribute("classroomList",classroomList);
+        request.getSession().setAttribute("teacherList",teacherList);
+        request.getSession().setAttribute("classroomList",classroomList);
         RequestDispatcher rd=request.getRequestDispatcher("/Course_Tea_Add.jsp");
         rd.forward(request,response);
     }

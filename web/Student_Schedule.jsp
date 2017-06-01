@@ -1,18 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
   User: feir4
-  Date: 2017/5/19
-  Time: 22:22
+  Date: 2017/5/31
+  Time: 14:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>首页</title>
+    <title>学生个人课表</title>
 </head>
 <body>
+<table>
 
-<jsp:include page="Head.jsp"/>
-
+</table>
 </body>
 </html>

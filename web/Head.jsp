@@ -12,19 +12,21 @@
 <div id="head">
     <h1>欢迎使用教务管理系统</h1>
     <c:if test="${user!=null}" scope="session" var="userIsEmpty">
-        当前用户：${user.getId()}<input type="submit" value="退出">
+        <p>
+            学号：${user.id}
+            <a href="index.jsp">退出</a>
+        </p>
         <table>
-            <tr>
-                <td><a>返回首页</a></td>
-                <td><a>学生选课</a></td>
-                <td><a>教师评价</a></td>
-                <td><a>查看课表</a></td>
-                <td><a>成绩查询</a></td>
-                <td><a>答疑功能</a></td>
+            <tr style="width: 60px">
+                <td style="width: 100px"><a href="StudentHome.jsp">首页</a></td>
+                <td style="width: 100px"><a href="Course_Stu_Add.jsp">学生选课</a></td>
+                <td style="width: 100px"><a>教师评价</a></td>
+                <td style="width: 100px"><a>查看课表</a></td>
+                <td style="width: 100px"><a>成绩查询</a></td>
+                <td style="width: 100px"><a>答疑</a></td>
             </tr>
         </table>
     </c:if>
-
 </div>
 </body>
 </html>

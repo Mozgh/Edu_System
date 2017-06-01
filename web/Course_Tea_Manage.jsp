@@ -16,6 +16,7 @@
 <a href="/AddCourseTeacher?c_no=${c_no}">新开教学班</a>
 <table>
     <tr>
+        <th>ID</th>
         <th>课程代码</th>
         <th>课程名称</th>
         <th>开课学院</th>
@@ -31,6 +32,7 @@
         <c:if test="${status.count%2==0}">
             <tr style="background: #dedeff;">
         </c:if>
+        <td>${course_tea.getCT_ID()}</td>
         <td>${course_tea.getC_ID()}</td>
         <td>${course_tea.getC_Name()}</td>
         <td>${course_tea.getC_Depart()}</td>
@@ -38,11 +40,7 @@
         <td>${course_tea.getC_Room()}</td>
         <td>${course_tea.getC_Time()}</td>
         <td>
-            <form>
-                <input type="hidden" value="${course_tea.getC_ID()}" name="c_id">
-                <input type="hidden" value="${course_tea.getC_Teacher()}" name="c_teacher">
-                <input type="submit" value="查看">
-            </form>
+            <a href="/EditCourseTeacher?ct_id=${course_tea.getCT_ID()}">查看与编辑</a>
         </td>
         <td>
             <form>

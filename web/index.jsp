@@ -11,7 +11,7 @@
     <title>登陆页面</title>
   </head>
   <body>
-  <jsp:include page="Head.jsp"></jsp:include>
+  ${message}
   <form action="IndexServlet" method="post">
     <table>
       <tr>
@@ -23,9 +23,9 @@
         <td><input type="password" name="password"></td>
       </tr>
     </table>
-    <input type="radio" value="student" name="identity">学生
-    <input type="radio" value="teacher" name="identity">教师
-    <input type="radio" value="admin" name="identity">管理员
+    <input type="radio" value="1" name="identity">学生
+    <input type="radio" value="2" name="identity">教师
+    <input type="radio" value="0" name="identity">管理员
     <input type="submit" value="登录">
     <input type="submit" value="重置">
   </form>

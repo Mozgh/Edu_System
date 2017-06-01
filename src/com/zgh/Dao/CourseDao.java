@@ -11,28 +11,40 @@ import java.util.ArrayList;
  * Created by feir4 on 2017/5/30.
  */
 public class CourseDao extends BaseDao {
-    public ArrayList<CourseBean> selectCourseTeacher(String c_no){
-        String sql="select course.c_no,c_name,c_department,t_no,c_time,c_room,c_info from course_teacher join course on course_teacher.c_no=course.c_no";
+    public ArrayList<CourseBean> selectCourseTeacher(String c_no,String t_no){
+        String sql="select ct_id,course.c_no,c_name,c_department,t_no,c_time,c_room,c_info,credit from course_teacher join course on course_teacher.c_no=course.c_no";
         CourseBean course;
         ArrayList<CourseBean> courselist=new ArrayList<CourseBean>();
         try {
             conn=dataSource.getConnection();
-            if(c_no!=""){
-                sql+=" where course.c_no=?";
-            }
-            pstmt=conn.prepareStatement(sql);
-            if(c_no!=""){
+            if(!c_no.equals("")&&!t_no.equals("")){
+                sql+=" where course.c_no=? and t_no=?";
+                pstmt= conn.prepareStatement(sql);
                 pstmt.setString(1,c_no);
+                pstmt.setString(2,t_no);
+            }else if(c_no.equals("")&&!t_no.equals("")){
+                sql+=" where t_no=?";
+                pstmt= conn.prepareStatement(sql);
+                pstmt.setString(1,t_no);
+            }else if(!c_no.equals("")&&t_no.equals("")){
+                sql+=" where course.c_no=?";
+                pstmt=conn.prepareStatement(sql);
+                pstmt.setString(1,c_no);
+            }else if(c_no.equals("")&&t_no.equals("")){
+                pstmt= conn.prepareStatement(sql);
             }
             rst=pstmt.executeQuery();
             while(rst.next()){
-                course=new CourseBean(rst.getString("course.c_no"),
+                course=new CourseBean(rst.getString("ct_id"),
+                        rst.getString("course.c_no"),
                         rst.getString("c_name"),
                         rst.getString("c_department"),
                         rst.getString("c_info"),
+                        rst.getInt("credit"),
                         rst.getString("t_no"),
                         rst.getString("c_room"),
                         rst.getString("c_time"));
+                course.setT_ID(rst.getString("t_no"));
                 pstmt=conn.prepareStatement("select t_name from teacher where t_no=?");
                 pstmt.setString(1,course.getC_Teacher());
                 ResultSet r=pstmt.executeQuery();
@@ -52,6 +64,45 @@ public class CourseDao extends BaseDao {
             e.printStackTrace();
         }
         return courselist;
+    }
+
+    public CourseBean selectCourseTeacher(String ct_id){
+        String sql="select ct_id,course.c_no,c_name,c_department,t_no,c_time,c_room,c_info credit from course_teacher join course on course_teacher.c_no=course.c_no where ct_id=?";
+        CourseBean course=new CourseBean();
+        try {
+            conn=dataSource.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,ct_id);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                course=new CourseBean(rst.getString("ct_id"),
+                        rst.getString("course.c_no"),
+                        rst.getString("c_name"),
+                        rst.getString("c_department"),
+                        rst.getString("c_info"),
+                        rst.getInt("credit"),
+                        rst.getString("t_no"),
+                        rst.getString("c_room"),
+                        rst.getString("c_time"));
+                course.setT_ID(rst.getString("t_no"));
+                pstmt=conn.prepareStatement("select t_name from teacher where t_no=?");
+                pstmt.setString(1,course.getC_Teacher());
+                ResultSet r=pstmt.executeQuery();
+                while(r.next()){
+                    course.setC_Teacher(r.getString("t_name"));
+                }
+                pstmt=conn.prepareStatement("select building,house from classroom where room_id=?");
+                pstmt.setString(1,course.getC_Room());
+                r=pstmt.executeQuery();
+                while(r.next()){
+                    course.setC_Room(r.getString("building")+r.getString("house"));
+                }
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return course;
     }
 
     public ArrayList<ClassroomBean> selectClassroom(){
@@ -97,6 +148,7 @@ public class CourseDao extends BaseDao {
         }
         return courses;
     }
+
     public String selectCourseNo(int depart){
         int c_no=0;
         String sql="select c_no from course where left(c_no,2)=? order by c_no";
@@ -118,16 +170,40 @@ public class CourseDao extends BaseDao {
         else return String.valueOf(++c_no);
     }
 
-    public int addCourse(String c_no,String c_name,String c_department,String c_info){
+    public String selectCT_ID(String c_no,String t_no){
+        int ct_id=0;
+        String sql="select ct_id from course_teacher where c_no=? and t_no=?";
+        try {
+            conn=dataSource.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,c_no);
+            pstmt.setString(2,t_no);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                ct_id=Integer.parseInt(rst.getString("ct_id"));
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(ct_id==0){
+            return c_no+t_no.substring(2,4)+"01";
+        }
+        else
+            return String.valueOf(++ct_id);
+    }
+
+    public int addCourse(String c_no,String c_name,String c_department,int c_credit,String c_info){
         int row=0;
-        String sql="insert into course values(?,?,?,?)";
+        String sql="insert into course values(?,?,?,?,?)";
         try {
             conn=dataSource.getConnection();
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1,c_no);
             pstmt.setString(2,c_name);
             pstmt.setString(3,c_department);
-            pstmt.setString(4,c_info);
+            pstmt.setInt(4,c_credit);
+            pstmt.setString(5,c_info);
             row=pstmt.executeUpdate();
             conn.close();
         } catch (SQLException e) {
@@ -136,22 +212,39 @@ public class CourseDao extends BaseDao {
         return row;
     }
 
-    public int addCourse_Tea(String c_no,String t_no,String c_time,String c_room){
-        String sql="insert into course_teacher values(?,?,?,?)";
-        int row=0;
+    public String addCourse_Tea(String ct_id,String c_no,String t_no,String c_time,String c_room){
+        String result="";
+        String sql="select ct_id from course_teacher where c_time=? and c_room=?";
         try {
             conn=dataSource.getConnection();
             pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1,c_no);
-            pstmt.setString(2,t_no);
-            pstmt.setString(3,c_time);
-            pstmt.setString(4,c_room);
-            row=pstmt.executeUpdate();
-            conn.close();
+            pstmt.setString(1,c_time);
+            pstmt.setString(2,c_room);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                result=rst.getString("ct_id");
+            }
+            if(!result.equals(""))
+                return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return row;
+        sql="insert into course_teacher values(?,?,?,?,?)";
+        int row=0;
+        try {
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,ct_id);
+            pstmt.setString(2,c_no);
+            pstmt.setString(3,t_no);
+            pstmt.setString(4,c_time);
+            pstmt.setString(5,c_room);
+            row=pstmt.executeUpdate();
+            conn.close();
+            result="添加成功";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public CourseBean selectByCno(String c_no){
@@ -189,5 +282,68 @@ public class CourseDao extends BaseDao {
             e.printStackTrace();
         }
         return row;
+    }
+
+    public String addCourseStudent(String ct_id,String c_time,String s_no,String c_no,String t_no){
+        int row=0;
+        String message="";
+        //判定该课程是否已选
+        String sql="select * from course_student where c_no=? and t_no=? and s_no=?";
+        try {
+            conn=dataSource.getConnection();
+            pstmt= conn.prepareStatement(sql);
+            pstmt.setString(1,c_no);
+            pstmt.setString(2,t_no);
+            pstmt.setString(3,s_no);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                message="该课程已选，不能重复选课！";
+            }
+            if(!message.equals("")){
+                conn.close();
+                return message;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //判定是否时间冲突
+        sql="select c_time from course_student join course_teacher on (course_student.c_no=course_teacher.c_no and course_student.t_no=course_teacher.t_no) where s_no=?";
+        try {
+            pstmt= conn.prepareStatement(sql);
+            pstmt.setString(1,s_no);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                if(rst.getString("c_time").equals(c_time)){
+                    message="时间冲突！";
+                }
+            }
+            if(message.equals("时间冲突!")){
+                conn.close();
+                return message;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //判断人数是否达到上限
+
+        //添加选课记录到course_student表
+        sql="insert into course_student values(?,?,?,?)";
+        try {
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,s_no+c_no);
+            pstmt.setString(2,c_no);
+            pstmt.setString(3,s_no);
+            pstmt.setString(4,t_no);
+            row=pstmt.executeUpdate();
+            if(row!=0){
+                message="选课成功";
+            }
+            else
+                message="选课失败";
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return message;
     }
 }

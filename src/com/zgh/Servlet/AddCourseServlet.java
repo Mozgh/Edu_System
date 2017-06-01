@@ -21,6 +21,7 @@ public class AddCourseServlet extends HttpServlet {
         String c_depart="";
         String c_name=request.getParameter("c_name");
         String c_info=request.getParameter("c_info");
+        int c_credit=Integer.parseInt(request.getParameter("c_credit"));
         switch(depart){
             case "10":c_depart="能源与动力工程学院";break;
             case "12":c_depart="光电信息与计算机工程学院";break;
@@ -33,13 +34,13 @@ public class AddCourseServlet extends HttpServlet {
 
         CourseDao coursedao=new CourseDao();
         String c_no=coursedao.selectCourseNo(Integer.parseInt(depart));
-        coursedao.addCourse(c_no,c_name,c_depart,c_info);
+        coursedao.addCourse(c_no,c_name,c_depart,c_credit,c_info);
         CourseBean course=new CourseBean();
         course.setC_ID(c_no);
         course.setC_Name(c_no);
         course.setC_Info(c_info);
         request.getSession().setAttribute("course",course);
-        RequestDispatcher rd=request.getRequestDispatcher("/Course_Add.jsp");
+        RequestDispatcher rd=request.getRequestDispatcher("/Course_Manage.jsp");
         rd.forward(request,response);
     }
 

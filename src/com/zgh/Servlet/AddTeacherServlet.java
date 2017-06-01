@@ -2,6 +2,7 @@ package com.zgh.Servlet;
 
 import com.zgh.Bean.TeacherBean;
 import com.zgh.Dao.TeacherDao;
+import com.zgh.Dao.UserDao;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +33,8 @@ public class AddTeacherServlet extends HttpServlet {
         String id=teacherdao.selectTeacherNo(Integer.parseInt(depart));
         TeacherBean teacher=new TeacherBean(id,name,Integer.parseInt(age),depart,prof);
         int result=teacherdao.addTeacher(teacher);
+        UserDao userdao=new UserDao();
+        userdao.addUser(id,id,2);
         if(result==1){
             message="添加成功，教工号为："+id;
         }
