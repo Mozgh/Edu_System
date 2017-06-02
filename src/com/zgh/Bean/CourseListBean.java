@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class CourseListBean {
     private ArrayList<CourseBean> course_tea_list;
     private ArrayList<CourseBean> course_list;
+    private ArrayList<CourseBean> course_stu_list;
 
     public CourseListBean(){this.setCourse_List();this.setCourse_Tea_List();}
 
@@ -21,6 +22,11 @@ public class CourseListBean {
         CourseDao coursedao=new CourseDao();
         this.course_tea_list=coursedao.selectCourseTeacher("","");
     }
+    public void setCourse_Stu_List(String s_no){
+        CourseDao coursedao=new CourseDao();
+        this.course_stu_list=coursedao.selectCourseListBySno(s_no);
+    }
+
     public void setCourse_List(){
         CourseDao coursedao=new CourseDao();
         this.course_list=coursedao.selectCourse();
@@ -30,4 +36,5 @@ public class CourseListBean {
         return this.course_tea_list;
     }
     public ArrayList<CourseBean> getCourse_List(){return this.course_list;}
+    public ArrayList<CourseBean> getCourse_Stu_List(){return this.course_stu_list;}
 }
