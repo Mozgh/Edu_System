@@ -14,7 +14,7 @@ public class TeacherEvaluateListBean {
 
     public void setTeacherEvaluateList(String s_no){
         TeacherDao teacherdao=new TeacherDao();
-        this.teacherEvaluateList=teacherdao.selectTeahcerListBySno(s_no);
+        this.teacherEvaluateList=teacherdao.selectTeacherListBySno(s_no);
     }
     public ArrayList<TeacherEvaluateBean> getTeacherEvaluateList(){return this.teacherEvaluateList;}
 }

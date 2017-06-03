@@ -126,6 +126,7 @@ public class StudentDao extends BaseDao{
         }
         return row;
     }
+    //删除学生
     public int delStudent(String s_id){
         int row=0;
         String sql="delete from student where s_no=?";
@@ -139,5 +140,29 @@ public class StudentDao extends BaseDao{
             e.printStackTrace();
         }
         return row;
+    }
+    //按教学班查找学生
+    public ArrayList<StudentBean> selectStudentsByCourse(String t_no,String c_no){
+        ArrayList<StudentBean> studentList=new ArrayList<StudentBean>();
+        String sql="select * from student join course_student on student.s_no=course_student.s_no where t_no=? and c_no=?";
+        try {
+            conn=dataSource.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,t_no);
+            pstmt.setString(2,c_no);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                StudentBean stu=new StudentBean();
+                stu.setS_ID(rst.getString("s_no"));
+                stu.setS_Name(rst.getString("s_name"));
+                stu.setS_Age(rst.getInt("s_age"));
+                stu.setS_Depart(rst.getString("s_department"));
+                studentList.add(stu);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return studentList;
     }
 }

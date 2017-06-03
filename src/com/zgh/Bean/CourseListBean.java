@@ -22,6 +22,10 @@ public class CourseListBean {
         CourseDao coursedao=new CourseDao();
         this.course_tea_list=coursedao.selectCourseTeacher("","");
     }
+    public void setCourse_List(String t_no){
+        CourseDao coursedao=new CourseDao();
+        this.course_list=coursedao.selectCourseListByTno(t_no);
+    }
     public void setCourse_Stu_List(String s_no){
         CourseDao coursedao=new CourseDao();
         this.course_stu_list=coursedao.selectCourseListBySno(s_no);

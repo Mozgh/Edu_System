@@ -40,7 +40,7 @@ public class IndexServlet extends HttpServlet {
             switch(userbean.getIdentity()){
                 case 0:rd=request.getRequestDispatcher("/ManageHome.jsp");break;
                 case 1:rd=request.getRequestDispatcher("/StudentHome.jsp");break;
-                case 2:message="暂未开通";break;
+                case 2:rd=request.getRequestDispatcher("/TeacherHome.jsp");break;
                 default:message="系统错误";break;
             }
         }

@@ -452,4 +452,26 @@ public class CourseDao extends BaseDao {
         }
         return message;
     }
+
+    public ArrayList<CourseBean> selectCourseListByTno(String t_no){
+        ArrayList<CourseBean> courseList=new ArrayList<CourseBean>();
+        String sql="select * from course_teacher join course on course_teacher.c_no=course.c_no where t_no=?";
+        try {
+            conn=dataSource.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,t_no);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                CourseBean course=new CourseBean();
+                course.setC_ID(rst.getString("c_no"));
+                course.setT_ID(rst.getString("t_no"));
+                course.setC_Name(rst.getString("c_name"));
+                courseList.add(course);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courseList;
+    }
 }

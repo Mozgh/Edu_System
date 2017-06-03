@@ -16,5 +16,9 @@ public class StudentListBean {
         StudentDao studentdao=new StudentDao();
         this.studentList=studentdao.selectStudents();
     }
+    public void setStudentList(String t_no,String c_no){
+        StudentDao studentdao=new StudentDao();
+        this.studentList=studentdao.selectStudentsByCourse(t_no,c_no);
+    }
     public ArrayList<StudentBean> getStudentList(){return this.studentList;}
 }

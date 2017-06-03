@@ -166,6 +166,7 @@ public class TeacherDao extends BaseDao{
             while(rst.next()){
                 te_id=rst.getString("te_id");
             }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -200,7 +201,7 @@ public class TeacherDao extends BaseDao{
         return message;
     }
 
-    public ArrayList<TeacherEvaluateBean> selectTeahcerListBySno(String s_no){
+    public ArrayList<TeacherEvaluateBean> selectTeacherListBySno(String s_no){
         ArrayList<TeacherEvaluateBean> teacherList=new ArrayList<TeacherEvaluateBean>();
 
         String sql="select cs.c_no,cs.t_no from course_student as cs join course_teacher as ct on cs.c_no=ct.c_no and cs.t_no=ct.t_no where cs.s_no=?";
@@ -212,17 +213,27 @@ public class TeacherDao extends BaseDao{
             while(rst.next()){
                 sql="select c_name from course where c_no=?";
                 pstmt=conn.prepareStatement(sql);
-                pstmt.setString(1,rst.getString("cs.c_no"));
+                String c_no=rst.getString("c_no");
+                String t_no=rst.getString("t_no");
+                pstmt.setString(1,c_no);
                 ResultSet r1=pstmt.executeQuery();
+                String c_name=null;
+                while(r1.next()){
+                    c_name=r1.getString("c_name");
+                }
                 sql="select t_name from teacher where t_no=?";
                 pstmt=conn.prepareStatement(sql);
-                pstmt.setString(1,rst.getString("cs.t_no"));
+                pstmt.setString(1,t_no);
                 ResultSet r2=pstmt.executeQuery();
+                String t_name=null;
+                while(r2.next()){
+                    t_name=r2.getString("t_name");
+                }
                 TeacherEvaluateBean te=new TeacherEvaluateBean();
-                te.setC_no(rst.getString("cs.c_no"));
-                te.setC_name(r1.getString("c_name"));
-                te.setT_no(rst.getString("cs.t_no"));
-                te.setT_name(r2.getString("t_name"));
+                te.setC_no(c_no);
+                te.setC_name(c_name);
+                te.setT_no(t_no);
+                te.setT_name(t_name);
                 teacherList.add(te);
             }
             conn.close();
@@ -231,5 +242,4 @@ public class TeacherDao extends BaseDao{
         }
         return teacherList;
     }
-
 }
