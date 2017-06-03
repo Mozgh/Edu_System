@@ -37,8 +37,8 @@
             <td>${course.getC_Teacher()}</td>
             <td>${course.getC_Time()}</td>
             <td>${course.getC_Room()}</td>
+            <td>${course.getC_Depart()}</td>
             <td>${course.getC_Credit()}</td>
-            <td>已选人数</td>
             <td><a href="/DelCourseStu?s_no=${user.id}&c_no=${course.getC_ID()}&t_no=${course.getT_ID()}">退选</a></td>
             </tr>
         </c:forEach>

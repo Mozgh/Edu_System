@@ -12,7 +12,14 @@
 </head>
 <body>
 <table>
-
+    <tr>
+        <td colspan="2" rowspan="1" width="2%">时间</td>
+        <td align="Center" width="14%">星期一</td>
+        <td align="Center" width="14%">星期二</td>
+        <td align="Center" width="14%">星期三</td>
+        <td align="Center" width="14%">星期四</td>
+        <td align="Center" width="14%">星期五</td>
+    </tr>
 </table>
 </body>
 </html>

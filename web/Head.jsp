@@ -22,7 +22,7 @@
                 <td style="width: 100px"><a href="Course_Stu_Add.jsp">学生选课</a></td>
                 <td style="width: 100px"><a href="ToCourse_Stu_Show?s_no=${user.id}">已选课程</a></td>
                 <td style="width: 100px"><a>教师评价</a></td>
-                <td style="width: 100px"><a>查看课表</a></td>
+                <td style="width: 100px"><a href="ToStudentSchedule?s_no=${user.id}">查看课表</a></td>
                 <td style="width: 100px"><a>成绩查询</a></td>
                 <td style="width: 100px"><a>答疑</a></td>
             </tr>
