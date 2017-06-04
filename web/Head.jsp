@@ -24,8 +24,8 @@
                 <td style="width: 100px"><a href="ToCourse_Stu_Show?s_no=${user.id}">已选课程</a></td>
                 <td style="width: 100px"><a href="ToStudentEvaluate?s_no=${user.id}">教师评价</a></td>
                 <td style="width: 100px"><a href="ToStudentSchedule?s_no=${user.id}">查看课表</a></td>
-                <td style="width: 100px"><a>成绩查询</a></td>
-                <td style="width: 100px"><a>答疑</a></td>
+                <td style="width: 100px"><a href="ToStudent_Grade?s_no=${user.id}">成绩查询</a></td>
+                <td style="width: 100px"><a href="ToStudent_Question?s_no=${user.id}">答疑</a></td>
             </tr>
         </table>
         </c:if>
@@ -34,8 +34,8 @@
                 <tr style="width: 60px">
                     <td style="width: 100px"><a href="">首页</a></td>
                     <td style="width: 100px"><a href="ToTeacher_Stu_List?t_no=${user.id}">查看名册</a></td>
-                    <td style="width: 100px"><a href="">成绩录入</a></td>
-                    <td style="width: 100px"><a href="">查看评价</a></td>
+                    <td style="width: 100px"><a href="ToTeacher_Grade?t_no=${user.id}">成绩录入</a></td>
+                    <td style="width: 100px"><a href="ToTeacher_Evaluate?t_no=${user.id}">查看评价</a></td>
                     <td style="width: 100px"><a href="">答疑</a></td>
                 </tr>
             </table>

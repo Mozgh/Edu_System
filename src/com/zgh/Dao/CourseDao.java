@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Created by feir4 on 2017/5/30.
  */
 public class CourseDao extends BaseDao {
+    //按教工号和课程号查找教学班列表
     public ArrayList<CourseBean> selectCourseTeacher(String c_no,String t_no){
         String sql="select ct_id,course.c_no,c_name,c_department,t_no,c_time,c_room,c_info,credit from course_teacher join course on course_teacher.c_no=course.c_no";
         CourseBean course;
@@ -65,7 +66,7 @@ public class CourseDao extends BaseDao {
         }
         return courselist;
     }
-
+    //按照教学班ID查找教学班信息
     public CourseBean selectCourseTeacher(String ct_id){
         String sql="select ct_id,course.c_no,c_name,c_department,t_no,c_time,c_room,c_info credit from course_teacher join course on course_teacher.c_no=course.c_no where ct_id=?";
         CourseBean course=new CourseBean();
@@ -104,7 +105,7 @@ public class CourseDao extends BaseDao {
         }
         return course;
     }
-
+    //查询教室
     public ArrayList<ClassroomBean> selectClassroom(){
         String sql="select * from classroom where state=?";
         ArrayList<ClassroomBean> classrooms=new ArrayList<ClassroomBean>();
@@ -126,7 +127,7 @@ public class CourseDao extends BaseDao {
         }
         return classrooms;
     }
-
+    //查询课程列表
     public ArrayList<CourseBean> selectCourse(){
         String sql="select * from course";
         ArrayList<CourseBean> courses=new ArrayList<CourseBean>();
@@ -148,7 +149,7 @@ public class CourseDao extends BaseDao {
         }
         return courses;
     }
-
+    //查询添加的下一门课程的课程号
     public String selectCourseNo(int depart){
         int c_no=0;
         String sql="select c_no from course where left(c_no,2)=? order by c_no";
@@ -169,7 +170,7 @@ public class CourseDao extends BaseDao {
         }
         else return String.valueOf(++c_no);
     }
-
+    //查询添加的下一个教学班的ID
     public String selectCT_ID(String c_no,String t_no){
         int ct_id=0;
         String sql="select ct_id from course_teacher where c_no=? and t_no=?";
@@ -192,7 +193,7 @@ public class CourseDao extends BaseDao {
         else
             return String.valueOf(++ct_id);
     }
-
+    //添加课程
     public int addCourse(String c_no,String c_name,String c_department,int c_credit,String c_info){
         int row=0;
         String sql="insert into course values(?,?,?,?,?)";
@@ -211,7 +212,7 @@ public class CourseDao extends BaseDao {
         }
         return row;
     }
-
+    //添加教学班
     public String addCourse_Tea(String ct_id,String c_no,String t_no,String c_time,String c_room){
         String result="";
         String sql="select ct_id from course_teacher where c_time=? and c_room=?";
@@ -246,7 +247,7 @@ public class CourseDao extends BaseDao {
         }
         return result;
     }
-
+    //按课程号查询课程信息
     public CourseBean selectByCno(String c_no){
         String sql="select * from course where c_no=?";
         CourseBean course=new CourseBean();
@@ -267,7 +268,7 @@ public class CourseDao extends BaseDao {
         }
         return course;
     }
-
+    //修改课程简介
     public int editCourseInfo(String info,String c_no){
         String sql="update course set c_info=? where c_no=?";
         int row=0;
@@ -283,7 +284,7 @@ public class CourseDao extends BaseDao {
         }
         return row;
     }
-
+    //添加选课信息
     public String addCourseStudent(String ct_id,String c_time,String s_no,String c_no,String t_no){
         int row=0;
         String message="";
@@ -345,13 +346,14 @@ public class CourseDao extends BaseDao {
         }
 
         //添加选课记录到course_student表
-        sql="insert into course_student values(?,?,?,?)";
+        sql="insert into course_student values(?,?,?,?,?)";
         try {
             pstmt=conn.prepareStatement(sql);
             pstmt.setString(1,s_no+c_no);
             pstmt.setString(2,c_no);
             pstmt.setString(3,s_no);
             pstmt.setString(4,t_no);
+            pstmt.setInt(5,-1);
             row=pstmt.executeUpdate();
             if(row!=0){
                 message="选课成功";
@@ -364,7 +366,7 @@ public class CourseDao extends BaseDao {
         }
         return message;
     }
-
+    //按学号查询该学生选择的课程
     public ArrayList<CourseBean> selectCourseListBySno(String s_no){
         ArrayList<CourseBean> courseList=new ArrayList<CourseBean>();
         CourseBean course;
@@ -409,16 +411,14 @@ public class CourseDao extends BaseDao {
                     }
                     courseList.add(course);
                 }
-
             }
-
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return courseList;
     }
-
+    //退课
     public String delCourseStudent(String s_no,String c_no,String t_no){
         String message="";
         String sql="select cs_id from course_student where s_no=? and c_no=? and t_no=?";
@@ -452,7 +452,7 @@ public class CourseDao extends BaseDao {
         }
         return message;
     }
-
+    //按教工号查询该教工开设的课程
     public ArrayList<CourseBean> selectCourseListByTno(String t_no){
         ArrayList<CourseBean> courseList=new ArrayList<CourseBean>();
         String sql="select * from course_teacher join course on course_teacher.c_no=course.c_no where t_no=?";

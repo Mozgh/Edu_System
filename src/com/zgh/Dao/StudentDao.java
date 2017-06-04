@@ -165,4 +165,28 @@ public class StudentDao extends BaseDao{
         }
         return studentList;
     }
+    //按学号查询学生成绩
+    public ArrayList<GradeBean> selectGradeBySno(String s_no){
+        ArrayList<GradeBean> gradeList=new ArrayList<GradeBean>();
+        String sql="select cs_id,course.c_no,c_name,credit,s_grade from course_student join course on course_student.c_no=course.c_no where s_no=? and s_grade>0";
+        try {
+            conn=dataSource.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,s_no);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                GradeBean grade=new GradeBean();
+                grade.setC_no(rst.getString("c_no"));
+                grade.setC_name(rst.getString("c_name"));
+                grade.setGrade(rst.getInt("s_grade"));
+                grade.setCredit((rst.getInt("credit")));
+                grade.setGPA();
+                gradeList.add(grade);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return gradeList;
+    }
 }
