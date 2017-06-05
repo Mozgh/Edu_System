@@ -189,4 +189,25 @@ public class StudentDao extends BaseDao{
         }
         return gradeList;
     }
+    //查找所有上课教师
+    public ArrayList<TeacherBean> selectTeacherBySno(String s_no){
+        ArrayList<TeacherBean> teacherList=new ArrayList<TeacherBean>();
+        String sql="select t_no,t_name from teacher where t_no in(select t_no from course_student where s_no=?)";
+        try {
+            conn=dataSource.getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1,s_no);
+            rst=pstmt.executeQuery();
+            while(rst.next()){
+                TeacherBean teacher=new TeacherBean();
+                teacher.setT_ID(rst.getString("t_no"));
+                teacher.setT_Name(rst.getString("t_name"));
+                teacherList.add(teacher);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return teacherList;
+    }
 }

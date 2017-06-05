@@ -32,11 +32,11 @@
         <c:if test="${user.identity==2}" scope="session" var="userIsEmpty">
             <table>
                 <tr style="width: 60px">
-                    <td style="width: 100px"><a href="">首页</a></td>
+                    <td style="width: 100px"><a href="TeacherHome.jsp">首页</a></td>
                     <td style="width: 100px"><a href="ToTeacher_Stu_List?t_no=${user.id}">查看名册</a></td>
                     <td style="width: 100px"><a href="ToTeacher_Grade?t_no=${user.id}">成绩录入</a></td>
                     <td style="width: 100px"><a href="ToTeacher_Evaluate?t_no=${user.id}">查看评价</a></td>
-                    <td style="width: 100px"><a href="">答疑</a></td>
+                    <td style="width: 100px"><a href="ToTeacher_Question?t_no=${user.id}">答疑</a></td>
                 </tr>
             </table>
         </c:if>

@@ -26,15 +26,6 @@
         <td><a href="Course_Manage.jsp">课程信息管理</a></td>
         <td><a href="Course_Tea_Manage.jsp">教学班管理</a></td>
     </tr>
-    <tr>
-        <td>教室信息</td>
-        <td><input type="submit" value="添加上课教室"></td>
-    </tr>
-    <tr>
-        <td>
-            <input type="submit" value="发布公告">
-        </td>
-    </tr>
 </table>
 </body>
 </html>

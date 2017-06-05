@@ -3,7 +3,7 @@
     <Resource
         name="jdbc/edu_system"
         type="javax.sql.DataSource"
-        maxActive="4"
+        maxActive="10"
         maxIdle="2"
         maxWait="5000"
         driverClassName="com.mysql.jdbc.Driver"
